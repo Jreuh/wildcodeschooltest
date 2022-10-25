@@ -60,6 +60,7 @@
                     $query->execute();
                     /*Success message */
                     echo '<p class ="checked message">Argonaute ajouté(e)</p>';
+                    header("Refresh:5,url=index.php");
                 } else {
 
                     echo '<p class ="double message">L\'argonaute est déjà à bord</p>';
