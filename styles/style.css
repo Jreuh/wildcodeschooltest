@@ -42,15 +42,39 @@ label {
   margin: 2em 0 4em 0;
   text-align: center;
 }
+.message {
+  text-align: center;
+  padding: 15px;
+  width: 75%;
+  border-radius: 5px;
+}
+.message.error {
+  background-color: #772014;
+  color: #fff;
+}
+.message.checked {
+  background-color: #b4dc7f;
+}
+.message.double {
+  background-color: #548687;
+}
+p {
+  margin: auto;
+}
 .member-list {
   display: flex;
   text-align: center;
   justify-content: center;
+  gap: 3%;
+  flex-wrap: wrap;
 }
 
 .member-item {
   flex-basis: 30%;
   padding: 0.25em 0;
+  background-color: #c9d7f8;
+  margin-top: 25px;
+  border-radius: 15px;
 }
 
 footer {

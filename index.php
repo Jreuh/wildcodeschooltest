@@ -27,7 +27,7 @@
         <form class="new-member-form" method="POST" action="index.php">
             <label for="name">Nom de l&apos;Argonaute</label>
             <input id="name" name="name" type="text" placeholder="Charalampos" />
-            <button type="submit" name="addArg" value="Envoi checked">Envoyer</button>
+            <button type="submit" name="addArg" value="0">Envoyer</button>
         </form>
         <?php
         /* db connexion */
@@ -46,16 +46,27 @@
             if (isset($_POST['name']) && !empty($_POST['name'])) {
                 /*if that's the case we as the value of the field into a variables(strip tags will remove html and php tag)*/
                 $name = strip_tags($_POST['name']);
-                /* sending the data to the db while protecting ourself from sql injection with a prepared query*/
-                $sql = "INSERT INTO argonautes (name) Value (:name)";
-                $query = $db->prepare($sql);
-                $query->bindValue(':name', $name, PDO::PARAM_STR_CHAR);
-                $query->execute();
-                /*Success message */
-                echo '<p class ="checkedMessage">Argonaute ajouté(e)</p>';
+                $total = count($argoTeam);
+                $list = array();
+                for ($i = 0; $i <= $total - 1; $i++) {
+                    array_push($list, $argoTeam[$i]['name']);
+                }
+                $look = array_search($name, $list);
+                if ($look == false) {
+                    /* sending the data to the db while protecting ourself from sql injection with a prepared query*/
+                    $sql = "INSERT INTO argonautes (name) Value (:name)";
+                    $query = $db->prepare($sql);
+                    $query->bindValue(':name', $name, PDO::PARAM_STR_CHAR);
+                    $query->execute();
+                    /*Success message */
+                    echo '<p class ="checked message">Argonaute ajouté(e)</p>';
+                } else {
+
+                    echo '<p class ="double message">L\'argonaute est déjà à bord</p>';
+                }
             } elseif (isset($_POST['name']) && empty($_POST['name'])) {
                 /* Error message*/
-                echo '<p class ="errrorMessage">Veuillez entrer un nom</p>';
+                echo '<p class ="error message">Veuillez entrer un nom</p>';
             }
         } ?>
 
